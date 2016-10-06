@@ -12,7 +12,8 @@ build:
     image_name: service-boilerplate
     image_tag: latest
     pull: false
-    env: PORT=8080 HOST=0.0.0.0
+    env:
+      PORT=8080 HOST=0.0.0.0
     options: "-e HOME=/src"
   ci:
     - npm install
