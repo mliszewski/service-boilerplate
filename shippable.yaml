@@ -1,20 +1,9 @@
 language: node_js
 
 node_js:
-  - 6
+  - 4.2.3
 
 build:
-
-  pre_ci:
-    - docker build -t service-boilerplate .
-
-  pre_ci_boot:
-    image_name: service-boilerplate
-    image_tag: latest
-    pull: false
-    env:
-      PORT=8080 HOST=0.0.0.0
-    options: "-w /src"
   ci:
     - npm install
     - mkdir -p shippable/testresults
