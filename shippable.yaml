@@ -13,6 +13,7 @@ build:
     image_tag: latest
     pull: false
     env: PORT=8080 HOST=0.0.0.0
+    options: "-e HOME=/src"
   ci:
     - npm install
     - mkdir -p shippable/testresults
