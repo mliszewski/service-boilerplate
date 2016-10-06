@@ -14,7 +14,7 @@ build:
     pull: false
     env:
       PORT=8080 HOST=0.0.0.0
-    options: "-e HOME=/src"
+    options: "-w /src"
   ci:
     - npm install
     - mkdir -p shippable/testresults
