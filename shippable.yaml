@@ -12,8 +12,7 @@ build:
     image_name: service-boilerplate
     image_tag: latest
     pull: false
-    env: PORT="10010"
-    options: "-e HOME=/root"
+    env: PORT=8080 HOST=0.0.0.0
   ci:
     - npm install
     - mkdir -p shippable/testresults
