@@ -3,6 +3,8 @@ language: node_js
 node_js:
   - 4.2.3
 
+env:
+  - PORT="10010"
 build:
   ci:
     - npm install
