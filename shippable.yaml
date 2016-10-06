@@ -13,7 +13,7 @@ build:
     image_tag: latest
     pull: false
     env: PORT="10010"
-    options:
+    options: "-e HOME=/root"
   ci:
     - npm install
     - mkdir -p shippable/testresults
