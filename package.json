@@ -10,7 +10,9 @@
     "lint": "gulp lint",
     "start": "babel-node $npm_package_main",
     "test": "gulp lint && nyc ava",
-    "test:watch": "ava -wv"
+    "test:watch": "ava -wv",
+    "ci:test": "nyc ava --tap | tap-xunit > shippable/testresults/results.xml",
+    "ci:report": "nyc report --reporter=cobertura --report-dir ./shippable/codecoverage"
   },
   "engines": {
     "node": ">=6"
@@ -86,6 +88,7 @@
     "gulp-sequence": "^0",
     "nyc": "^8",
     "supertest": "^2",
-    "supertest-as-promised": "^4"
+    "supertest-as-promised": "^4",
+    "tap-xunit": "^1"
   }
 }

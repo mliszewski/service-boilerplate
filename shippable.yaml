@@ -1,0 +1,23 @@
+language:
+
+node_js:
+  - 6
+
+build:
+
+  pre_ci:
+    - docker build -t service-boilerplate .
+
+  pre_ci_boot:
+    image_name: service-boilerplate
+    image_tag: latest
+    pull: false
+    env: PORT="10010"
+    options:
+  ci:
+    - npm install
+    - mkdir -p shippable/testresults
+    - mkdir -p shippable/codecoverage
+    - npm run-script lint
+    - npm run-script ci:test
+    - npm run-script ci:report
