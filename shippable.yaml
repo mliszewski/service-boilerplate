@@ -1,16 +1,16 @@
 language: node_js
 
+env:
+  PORT="10010"
+
 build:
   pre_ci_boot:
       image_name: node
       image_tag: 6
       pull: true
-      env: PORT="10010"
 
   ci:
     - shippable_retry npm install -q && npm cache clean
-    - mkdir -p shippable/testresults
-    - mkdir -p shippable/codecoverage
     - npm run-script lint
     - npm run-script ci:test
     - npm run-script ci:report

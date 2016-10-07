@@ -12,5 +12,5 @@ test('GET /heartbeat should return an object {"message": "OK"}', t => {
   return request(app)
     .get('/heartbeat')
     .expect('Content-Type', /json/)
-    .then(res => t.true(res.body.message === 'OK'));
+    .then(res => t.true(res.body.message === 'O'));
 });
