@@ -11,7 +11,7 @@
     "start": "babel-node $npm_package_main",
     "test": "gulp lint && nyc ava",
     "test:watch": "ava -wv",
-    "ci:test": "nyc ava --tap | tap-xunit > shippable/testresults/results.xml",
+    "ci:test": "nyc --check-coverage --lines 95 --functions 95 --branches 75 ava --tap | tap-xunit > shippable/testresults/results.xml",
     "ci:report": "nyc report --reporter=cobertura --report-dir ./shippable/codecoverage"
   },
   "engines": {
