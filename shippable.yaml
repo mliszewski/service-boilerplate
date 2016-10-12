@@ -16,7 +16,7 @@ build:
   ci:
     - shippable_retry npm install -q && npm cache clean
     - ./node_modules/.bin/gulp lint
-    - psql -c 'create user ci with superuser;' -U postgres
+    - psql -c 'create user ci with superuser password null;' -U postgres
     - psql -c 'create database ci;' -U postgres
     - ./node_modules/.bin/gulp test:setup
     - nyc ava --tap | tap-xunit > shippable/testresults/results.xml
