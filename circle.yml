@@ -1,9 +1,20 @@
 machine:
   node:
     version: v6.1.0
+  environment:
+    PORT: 10010
+    POSTGRES_HOST: 127.0.0.1
+    POSTGRES_DB: circle_test
+    POSTGRES_USER: ubuntu
+    POSTGRES_PWD: ''
+
+dependencies:
+  override:
+    - npm install -q && npm cache clea
 
 test:
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - nyc --check-coverage --lines 95 --functions 95 --branches 75 ava --tap | tap-xunit > $CIRCLE_TEST_REPORTS/junit/test-results.xml
-
+    - ./node_modules/.bin/gulp lint
+    - ./node_modules/.bin/gulp test:setup
+    - nyc ava --tap | tap-xunit > $CIRCLE_TEST_REPORTS/junit/test-results.xml
