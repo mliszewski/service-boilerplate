@@ -16,9 +16,9 @@ env:
 build:
   ci:
     - shippable_retry npm install -q && npm cache clean
-    - gulp lint
+    - ./node_modules/.bin/gulp lint
     - psql -c 'create role ci with superuser PASSWORD ci;' -U postgres
     - psql -c 'create database ci;' -U postgres
-    - gulp test:setup
+    - ./node_modules/.bin/gulp test:setup
     - nyc ava --tap | tap-xunit > shippable/testresults/results.xml",
     - nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
