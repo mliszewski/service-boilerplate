@@ -13,7 +13,9 @@ dependencies:
 
 test:
   override:
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - ./node_modules/.bin/gulp lint
     - ./node_modules/.bin/gulp test:setup
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > $CIRCLE_TEST_REPORTS/junit/test-results.xml
+    - mkdir -p $CIRCLE_ARTIFACTS/codecoverage
+    - ./node_modules/.bin/nyc report --report-dir $CIRCLE_ARTIFACTS/codecoverage
