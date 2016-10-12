@@ -6,7 +6,6 @@ machine:
     POSTGRES_HOST: 127.0.0.1
     POSTGRES_DB: circle_test
     POSTGRES_USER: ubuntu
-    POSTGRES_PWD: ''
 
 dependencies:
   override:
