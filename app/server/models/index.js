@@ -6,7 +6,7 @@ import Sequelize from 'sequelize';
 
 let basename = path.basename(module.filename);
 let db = {};
-let sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.POSTGRES_PWD, {
+let sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.POSTGRES_PWD || '', {
   host: process.env.POSTGRES_HOST,
   dialect: 'postgres',
   pool: {
