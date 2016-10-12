@@ -11,13 +11,13 @@ env:
   POSTGRES_HOST=127.0.0.1
   POSTGRES_DB=ci
   POSTGRES_USER=ci
-  POSTGRES_PWD=''
+  POSTGRES_PWD=ci
 
 build:
   ci:
     - shippable_retry npm install -q && npm cache clean
     - ./node_modules/.bin/gulp lint
-    - psql -c 'create role ci with superuser;' -U postgres
+    - psql -c 'create role ci with superuser PASSWORD ''ci'';' -U postgres
     - psql -c 'create database ci;' -U postgres
     - ./node_modules/.bin/gulp test:setup
     - nyc ava --tap | tap-xunit > shippable/testresults/results.xml
