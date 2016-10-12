@@ -17,4 +17,4 @@ COPY . /src
 WORKDIR /src
 
 EXPOSE 8080
-CMD [ "npm", "start" ]
+CMD [ "npm", "start"]

@@ -39,6 +39,7 @@ module.exports = {
   },
 
   "globals": {
+    "db": true
     // e.g. "angular": true
   },
 

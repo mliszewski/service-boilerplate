@@ -35,6 +35,7 @@ const cfg = {
         cwd('.env*'),
         cwd('.eslint*')
       ],
+      legacyWatch: true,
       ignore: [
         // Add any adhoc globs
       ].concat(pkgJson.ava.files)

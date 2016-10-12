@@ -15,6 +15,9 @@ dotenv.load({
   silent: true
 });
 
+import db from './models';
+global.db = db;
+
 // Bind middleware
 middleware(app);
 

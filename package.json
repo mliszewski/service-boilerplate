@@ -8,11 +8,11 @@
     "clean:dusting": "rm -rf .nyc_output/ coverage/ npm-debug.log",
     "dev": "gulp dev",
     "lint": "gulp lint",
-    "start": "babel-node $npm_package_main",
-    "test": "gulp lint && nyc ava",
-    "test:watch": "ava -wv",
-    "ci:test": "nyc --check-coverage --lines 95 --functions 95 --branches 75 ava --tap | tap-xunit > shippable/testresults/results.xml",
-    "ci:report": "nyc report --reporter=cobertura --report-dir ./shippable/codecoverage"
+    "start": "npm run-script migrate & gulp nodemon",
+    "migrate": "./node_modules/.bin/sequelize db:migrate",
+    "test:run": "gulp lint && gulp test:setup && nyc ava",
+    "test": "docker-compose up -d --force-recreate db && docker-compose build web && docker-compose run --rm web npm run-script test:run  ; docker-compose down",
+    "test:watch": "ava -wv"
   },
   "engines": {
     "node": ">=6"
@@ -63,7 +63,11 @@
     "cwd": "^0",
     "dotenv-safe": "^2",
     "express": "^4",
-    "morgan": "^1"
+    "morgan": "^1",
+    "pg": "^6",
+    "pg-hstore": "^2",
+    "sequelize": "^3",
+    "sequelize-cli": "^2"
   },
   "devDependencies": {
     "ava": "^0",
@@ -85,6 +89,7 @@
     "gulp-if": "^2",
     "gulp-load-plugins": "^1",
     "gulp-nodemon": "^2",
+    "gulp-sequelize-test-setup": "^0",
     "gulp-sequence": "^0",
     "nyc": "^8",
     "supertest": "^2",

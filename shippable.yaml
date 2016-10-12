@@ -1,16 +1,24 @@
 language: node_js
 
+node_js:
+  - 4.2.3
+
+services:
+  - postgres
+
 env:
-  PORT="10010"
+  PORT=10010
+  POSTGRES_HOST=127.0.0.1
+  POSTGRES_DB=ci
+  POSTGRES_USER=ci
+  POSTGRES_PWD=ci
 
 build:
-  pre_ci_boot:
-      image_name: node
-      image_tag: 6
-      pull: true
-
   ci:
     - shippable_retry npm install -q && npm cache clean
-    - npm run-script lint
-    - npm run-script ci:test
-    - npm run-script ci:report
+    - gulp lint
+    - psql -c 'create role ci with superuser PASSWORD ci;' -U postgres
+    - psql -c 'create database ci;' -U postgres
+    - gulp test:setup
+    - nyc ava --tap | tap-xunit > shippable/testresults/results.xml",
+    - nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
