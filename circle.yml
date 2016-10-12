@@ -10,7 +10,7 @@ machine:
 
 dependencies:
   override:
-    - npm install -q && npm cache clea
+    - npm install -q && npm cache clean
 
 test:
   override:
