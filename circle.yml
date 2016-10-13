@@ -19,3 +19,6 @@ test:
     - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > $CIRCLE_TEST_REPORTS/junit/test-results.xml
     - mkdir -p $CIRCLE_ARTIFACTS/codecoverage
     - ./node_modules/.bin/nyc report --reporter=html --report-dir $CIRCLE_ARTIFACTS/codecoverage
+
+  post:
+    - bash <(curl -s https://codecov.io/bash)
