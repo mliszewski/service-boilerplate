@@ -5,8 +5,11 @@ import dotenv from 'dotenv-safe';
 
 import middleware from './middleware';
 import routes from './routes';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 
 // Load config
 dotenv.load({

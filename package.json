@@ -60,6 +60,7 @@
   "homepage": "https://github.com/n8io/service-boilerplate#readme",
   "dependencies": {
     "body-parser": "^1",
+    "cors": "^2",
     "cwd": "^0",
     "dotenv-safe": "^2",
     "express": "^4",
