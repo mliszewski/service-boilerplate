@@ -16,7 +16,7 @@ A barebones nodejs repository with all the standard stuffs
 	1. Bootstrap test data when necessary (Sequelize test gulp task for test data fixtures)
 1. Code coverage
 	1. What are the minimum acceptable levels? Statements, functions, lines, branches (95, 95, 95, 75)
-	1. Ideally monitored by a third party service (codecov) [![codecov](https://codecov.io/gh/mliszewski/service-boilerplate/branch/master/graph/badge.svg)]
+	1. Ideally monitored by a third party service (codecov) [![codecov](https://codecov.io/gh/mliszewski/service-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/mliszewski/service-boilerplate)
 1. Linting
 	1. Ideally this is a one of the first shared libraries of a code base (eslint)
 	1. ruleset?
