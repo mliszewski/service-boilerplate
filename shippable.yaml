@@ -12,6 +12,7 @@ env:
   POSTGRES_DB=ci
   POSTGRES_USER=ci
   POSTGRES_PWD=ci
+  CODECOV_TOKEN=92837d5d-c380-4814-ba8f-aca3bf099b4f
 
 build:
   ci:
@@ -21,5 +22,5 @@ build:
     - psql -c "create database ci;" -U postgres
     - ./node_modules/.bin/gulp test:setup
     - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > shippable/testresults/results.xml
-    - ./node_modules/.bin/nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
+    - ./node_modules/.bin/nyc report --reporter=html --report-dir ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
