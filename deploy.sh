@@ -39,14 +39,10 @@ deploy_cluster() {
 }
 
 make_task_def(){
-	task_template=' [
+	task_template='[
     {
       "volumesFrom": [],
       "memory": 300,
-      "extraHosts": null,
-      "dnsServers": null,
-      "disableNetworking": null,
-      "dnsSearchDomains": null,
       "portMappings": [
         {
           "hostPort": 10010,
@@ -54,13 +50,9 @@ make_task_def(){
           "protocol": "tcp"
         }
       ],
-      "hostname": null,
       "essential": true,
-      "entryPoint": null,
       "mountPoints": [],
       "name": "api",
-      "ulimits": null,
-      "dockerSecurityOptions": null,
       "environment": [
         {
           "name": "PORT",
@@ -83,13 +75,7 @@ make_task_def(){
           "value": "test"
         }
       ],
-      "links": null,
-      "workingDirectory": null,
-      "readonlyRootFilesystem": null,
-      "image": "%s.dkr.ecr.us-east-1.amazonaws.com/mliszewski/service-boilerplate:%s",
-      "command": null,
-      "user": null,
-      "dockerLabels": null,
+      "image": "%s.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:%s",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -97,9 +83,7 @@ make_task_def(){
           "awslogs-region": "us-east-1"
         }
       },
-      "cpu": 0,
-      "privileged": null,
-      "memoryReservation": null
+      "cpu": 0
     }
   ]'
 
@@ -108,7 +92,7 @@ make_task_def(){
 
 push_ecr_image(){
 	eval $(aws ecr get-login --region us-east-1)
-	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:$CIRCLE_SHA1
+	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/mliszewski/service-boilerplate:$CIRCLE_SHA1
 }
 
 register_definition() {
