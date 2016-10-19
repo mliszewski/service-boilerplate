@@ -45,8 +45,8 @@ make_task_def(){
       "memory": 300,
       "portMappings": [
         {
-          "hostPort": 10010,
-          "containerPort": 8080,
+          "hostPort": 8080,
+          "containerPort": 10010,
           "protocol": "tcp"
         }
       ],
