@@ -8,7 +8,7 @@
     "clean:dusting": "rm -rf .nyc_output/ coverage/ npm-debug.log",
     "dev": "gulp dev",
     "lint": "gulp lint",
-    "start": "npm run-script migrate & gulp nodemon",
+    "start": "gulp nodemon",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
     "test:run": "gulp lint && gulp test:setup && nyc ava",
     "test": "docker-compose up -d --force-recreate db && docker-compose build web && docker-compose run --rm web npm run-script test:run  ; docker-compose down",

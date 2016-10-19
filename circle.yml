@@ -6,10 +6,14 @@ machine:
     POSTGRES_HOST: 127.0.0.1
     POSTGRES_DB: circle_test
     POSTGRES_USER: ubuntu
+  services:
+    - docker
 
 dependencies:
   override:
     - npm install -q && npm cache clean
+  post:
+    - docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:$CIRCLE_SHA1 .
 
 test:
   override:
@@ -22,3 +26,11 @@ test:
 
   post:
     - bash <(curl -s https://codecov.io/bash)
+    - docker run -d -p 10010:8080 -e PORT -e POSTGRES_HOST -e POSTGRES_DB -e POSTGRES_USER --name sample-go-webapp $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:$CIRCLE_SHA1; sleep 10
+    - curl --retry 10 --retry-delay 5 localhost:8080/heartbeat | grep "OK"
+
+deployment:
+  prod:
+    branch: master
+    commands:
+      - ./deploy.sh
