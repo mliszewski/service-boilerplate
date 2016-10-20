@@ -53,7 +53,7 @@ make_task_def(){
       "essential": true,
       "mountPoints": [],
       "name": "api",
-      "entryPoint": "run_staging.sh,
+      "entryPoint": "run_staging.sh",
       "environment": [
         {
           "name": "PORT",
