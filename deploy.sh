@@ -53,7 +53,7 @@ make_task_def(){
       "essential": true,
       "mountPoints": [],
       "name": "api",
-      "entryPoint": ["npm", "run-script", "migrate", "--", "--env", "staging"],
+      "entryPoint": "run_staging.sh,
       "environment": [
         {
           "name": "PORT",
@@ -65,7 +65,7 @@ make_task_def(){
         },
         {
           "name": "POSTGRES_HOST",
-          "value": "staging-psql.cyoup8z18dlf.us-east-1.rds.amazonaws.com:5432"
+          "value": "staging-psql.cyoup8z18dlf.us-east-1.rds.amazonaws.com"
         },
         {
           "name": "POSTGRES_PWD",
