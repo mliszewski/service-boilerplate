@@ -53,6 +53,7 @@ make_task_def(){
       "essential": true,
       "mountPoints": [],
       "name": "api",
+      "entryPoint": "npm run-script migrate -- --env staging",
       "environment": [
         {
           "name": "PORT",
@@ -60,19 +61,19 @@ make_task_def(){
         },
         {
           "name": "POSTGRES_DB",
-          "value": "test"
+          "value": "core"
         },
         {
           "name": "POSTGRES_HOST",
-          "value": "db"
+          "value": "staging-psql.cyoup8z18dlf.us-east-1.rds.amazonaws.com:5432"
         },
         {
           "name": "POSTGRES_PWD",
-          "value": "test"
+          "value": "%s"
         },
         {
           "name": "POSTGRES_USER",
-          "value": "test"
+          "value": "mliszewski"
         }
       ],
       "image": "%s.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:%s",
@@ -87,7 +88,7 @@ make_task_def(){
     }
   ]'
 
-	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
+	task_def=$(printf "$task_template" $STAGING_DB_PWD $AWS_ACCOUNT_ID $CIRCLE_SHA1)
 }
 
 push_ecr_image(){
