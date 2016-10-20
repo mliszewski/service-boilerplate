@@ -53,7 +53,7 @@ make_task_def(){
       "essential": true,
       "mountPoints": [],
       "name": "api",
-      "entryPoint": "npm run-script migrate -- --env staging",
+      "entryPoint": ["npm", "run-script", "migrate", "--", "--env", "staging"],
       "environment": [
         {
           "name": "PORT",
