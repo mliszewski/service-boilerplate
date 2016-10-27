@@ -13,10 +13,11 @@ env:
   POSTGRES_USER=ci
   POSTGRES_PWD=ci
   CODECOV_TOKEN=92837d5d-c380-4814-ba8f-aca3bf099b4f
+  AWS_ACCOUNT_ID=599844260227
 
 build:
   pre_ci:
-    - docker build --rm=false -t service-boilerplate:$BUILD_NUMBER .
+    - docker build --rm=false -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:$BRANCH-$COMMIT .
   ci:
     - shippable_retry npm install -q && npm cache clean
     - ./node_modules/.bin/gulp lint
@@ -27,7 +28,7 @@ build:
     - ./node_modules/.bin/nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
   push:
-      docker push service-boilerplate:$BUILD_NUMBER
+      docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:$BRANCH-$COMMIT
 
 integrations:
   hub:
