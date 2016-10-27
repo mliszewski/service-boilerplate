@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - 4.2.3
+  - 6.7.0
 
 services:
   - postgres
@@ -15,6 +15,8 @@ env:
   CODECOV_TOKEN=92837d5d-c380-4814-ba8f-aca3bf099b4f
 
 build:
+  pre_ci:
+    - docker build --rm=false -t service-boilerplate:$BUILD_NUMBER .
   ci:
     - shippable_retry npm install -q && npm cache clean
     - ./node_modules/.bin/gulp lint
@@ -24,3 +26,13 @@ build:
     - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > shippable/testresults/results.xml
     - ./node_modules/.bin/nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
+  push:
+      docker push service-boilerplate:$BUILD_NUMBER
+
+integrations:
+  hub:
+    - integrationName: ecr-integration
+      type: ecr
+      branches:
+        only:
+          - master
