@@ -1,13 +1,11 @@
 // https://gist.github.com/cletusw/e01a85e399ab563b1236
 module.exports = {
   "root": true, // Don't look in parent folders for eslint config
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-  },
-
+  "extends": [
+    "n8io/backend"
+  ]
   // http://eslint.org/docs/rules/
-
+  /*
   "ecmaFeatures": {
     "binaryLiterals": false,                    // enable binary literals
     "blockBindings": false,                     // enable let and const (aka block bindings)
@@ -39,7 +37,6 @@ module.exports = {
   },
 
   "globals": {
-    "db": true
     // e.g. "angular": true
   },
 
@@ -138,7 +135,7 @@ module.exports = {
     "no-label-var": 0,                // disallow labels that share a name with a variable
     "no-shadow": 0,                   // disallow declaration of variables already declared in the outer scope
     "no-shadow-restricted-names": 0,  // disallow shadowing of names such as arguments
-    "no-undef": "error",                    // disallow use of undeclared variables unless mentioned in a /*global */ block
+    "no-undef": "error",                    // disallow use of undeclared variables unless mentioned in a block
     "no-undef-init": "error",               // disallow use of undefined when initializing variables
     "no-undefined": 0,                // disallow use of undefined variable (off by default)
     "no-unused-vars": "error",              // disallow declaration of variables that are not used in the code
@@ -217,4 +214,5 @@ module.exports = {
     "no-bitwise": 0,      // disallow use of bitwise operators (off by default)
     "no-plusplus": 0      // disallow use of unary operators, ++ and -- (off by default)
   }
+  */
 };

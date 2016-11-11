@@ -4,4 +4,13 @@ coverage/
 .git/
 .env*
 !.env.example
+.nyc_output/
 README.md
+dist/
+docker-compose.y[a]?ml
+.DS_Store
+.editorconfig
+.git
+.gitignore
+.npmrc
+.nvmrc

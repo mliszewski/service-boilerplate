@@ -2,16 +2,22 @@
   "name": "service-boilerplate",
   "version": "1.0.0",
   "description": "A barebones nodejs repository with all the standard stuffs",
-  "main": "index.js",
+  "main": "src",
   "scripts": {
-    "clean": "rm -rf node_modules/ && npm run clean:dusting",
-    "clean:dusting": "rm -rf .nyc_output/ coverage/ npm-debug.log",
+    "build": "npm run clean:dusting && npm run build:babel",
+    "clean": "npm run clean:dusting && npm run clean:modules",
+    "docker": "npm run docker:build && npm run docker:shell",
+    "build:babel": "babel -d ./dist ./src --source-maps --ignore node_modules,build,coverage,.nyc_output",
+    "clean:modules": "rm -rf node_modules/",
+    "clean:dusting": "rm -rf .nyc_output/ coverage/ dist/ npm-debug.log",
+    "docker:build": "docker-compose build --force-rm",
+    "docker:shell": "docker run -it --rm -p 10010:8080 --env-file ./.env -e NODE_ENV=local -e PORT=8080 -v \"$(PWD):/src\" serviceboilerplate_service /bin/sh || true",
+    "docker:db": "docker-compose up -d --force-recreate db",
     "dev": "gulp dev",
     "lint": "gulp lint",
-    "start": "gulp nodemon",
+    "start": "node dist",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
-    "test:run": "gulp lint && gulp test:setup && nyc ava",
-    "test": "docker-compose up -d --force-recreate db && docker-compose build web && docker-compose run --rm web npm run-script test:run  ; docker-compose down",
+    "test": "gulp lint && gulp test:setup && nyc ava",
     "test:watch": "ava -wv"
   },
   "engines": {
@@ -20,9 +26,10 @@
   "ava": {
     "babel": "inherit",
     "files": [
-      "**/*.spec.js",
+      "src/**/*.spec.js",
       "!.nyc_output/",
-      "!coverage/"
+      "!coverage/",
+      "!dist/"
     ],
     "require": "babel-register"
   },
@@ -31,11 +38,17 @@
     "cache": true,
     "lines": 95,
     "statements": 95,
-    "functions": 95,
+    "functions": 90,
     "branches": 80,
     "include": [
-      "**/*.js",
-      "**/*.spec.js"
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "src/app/config/**",
+      "coverage",
+      "node_modules",
+      "dist"
     ],
     "reporter": [
       "lcov",
@@ -59,6 +72,7 @@
   },
   "homepage": "https://github.com/n8io/service-boilerplate#readme",
   "dependencies": {
+    "babel": "^6",
     "body-parser": "^1",
     "cors": "^2",
     "cwd": "^0",
@@ -68,22 +82,19 @@
     "pg": "^6",
     "pg-hstore": "^2",
     "sequelize": "^3",
-    "sequelize-cli": "^2"
+    "sequelize-cli": "^2",
+    "source-map-support": "^0",
+    "sequelize-connect": "^2"
   },
   "devDependencies": {
     "ava": "^0",
     "babel-cli": "^6",
     "babel-core": "^6",
     "babel-eslint": "^4",
-    "babel-plugin-transform-runtime": "^6",
     "babel-preset-es2015": "^6",
-    "babel-preset-node6": "^11",
     "babel-register": "^6",
     "eslint": "^3",
-    "eslint-config-standard": "^6",
-    "eslint-plugin-promise": "^2",
-    "eslint-plugin-standard": "^2",
-    "estraverse-fb": "^1",
+    "eslint-config-n8io": "^1",
     "gulp": "^3",
     "gulp-debug": "^2",
     "gulp-eslint": "^3",

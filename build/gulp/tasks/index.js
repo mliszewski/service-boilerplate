@@ -7,7 +7,7 @@ const tasks = (gulp, plugins, cfg) => {
       return;
     }
 
-    require(cwd(__dirname, file)).default(gulp, plugins, cfg);
+    require(cwd(__dirname, file)).default(gulp, plugins, cfg); // eslint-disable-line global-require
   });
 };
 

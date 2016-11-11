@@ -1,20 +1,8 @@
 ---
-  db:
-    build: .
-    dockerfile: Dockerfile-postgres
-
-  web:
+  service:
     build: .
     environment:
       - "HOST=0.0.0.0"
       - "PORT=8080"
-      - POSTGRES_HOST=db
-      - POSTGRES_DB=docker
-      - POSTGRES_USER=docker
-      - POSTGRES_PWD=docker
     ports:
       - "10010:8080"
-    links:
-        - db
-    volumes:
-        - "./app:/src/app"

@@ -2,7 +2,7 @@ import cfg from './config';
 
 const tasks = (gulp, plugins) => {
   // Register all tasks dynamically
-  require('./tasks').default(gulp, plugins, cfg);
+  require('./tasks').default(gulp, plugins, cfg); // eslint-disable-line global-require
 
   // Expose 'public' tasks
   gulp.task('lint', plugins.sequence(['eslint']));

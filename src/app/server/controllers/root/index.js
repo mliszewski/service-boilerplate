@@ -1,6 +1,4 @@
-const controller = {
-  get: get
-};
+const controller = {get};
 
 function get() {
   return 'OK';

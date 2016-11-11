@@ -1,9 +1,9 @@
-/* eslint-disable no-process-env */
 import cwd from 'cwd';
+import config from '../../src/app/config';
 
 const pkgJson = require(cwd('package.json'));
 const buildDir = cwd('build');
-const srcDir = cwd('app');
+const srcDir = cwd('src');
 
 const cfg = {
   eslint: {
@@ -14,9 +14,6 @@ const cfg = {
       build: [
         cwd(buildDir, '**/*.js')
       ]
-    },
-    opts: {
-      // configFile: cwd('./.eslintrc.js')
     },
     formatter: 'stylish'
   },
@@ -38,7 +35,8 @@ const cfg = {
       legacyWatch: true,
       ignore: [
         // Add any adhoc globs
-      ].concat(pkgJson.ava.files)
+      ].concat(pkgJson.ava.files),
+      legacyWatch: true
     }
   }
 };
@@ -49,11 +47,11 @@ cfg.dirs = {
 };
 
 cfg.env = {
-  isLocal: process.env.NODE_ENV === 'local',
-  isVerbose: !!process.env.GULP_DEBUG
+  isLocal: config.env.NODE_ENV === 'local',
+  isVerbose: !!config.env.GULP_DEBUG
 };
 
 // Force automatically fixing lint issues
-cfg.eslint.opts.fix = cfg.env.isLocal;
+cfg.eslint.opts = {fix: cfg.env.isLocal};
 
 export default cfg;

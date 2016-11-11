@@ -12,9 +12,9 @@ const routes = app => {
 };
 
 function get(req, res) {
-  const data = controller.get();
+  const heartbeatData = controller.get();
 
-  return res.json(data);
+  return res.json(heartbeatData);
 }
 
 export default routes;
