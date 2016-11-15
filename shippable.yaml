@@ -16,7 +16,7 @@ env:
 
 build:
   ci:
-    - docker build --rm=false --build-arg POSTGRES_DB=$POSTGRES_DB TEST_DATABASE_ID=$JOB_ID POSTGRES_HOST=$POSTGRES_HOST POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD  -t $DOCKER_REPO:$DOCKER_TAG .
+    - docker build --rm=false --build-arg POSTGRES_DB=$POSTGRES_DB --build-arg TEST_DATABASE_ID=$JOB_ID --build-arg POSTGRES_HOST=$POSTGRES_HOST --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_PWD=$POSTGRES_PWD  -t $DOCKER_REPO:$DOCKER_TAG .
     - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > shippable/testresults/results.xml
     - ./node_modules/.bin/nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
