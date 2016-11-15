@@ -9,8 +9,8 @@ dotenv.load({
   silent: true
 });
 
-const testDatabaseId = process.env.TEST_DATABASE_ID;
-const testDatabase = `test_${testDatabaseId}`;
+
+const testDatabase = process.env.POSTGRES_DB;
 const gulpDB = require('gulp-db')({
   host: process.env.POSTGRES_HOST,
   port: 5432,

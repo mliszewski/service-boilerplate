@@ -17,7 +17,10 @@
     "lint": "gulp lint",
     "start": "node dist",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
-    "test": "gulp lint && gulp testdb:setup && nyc ava && gulp testdb:drop",
+    "test": "gulp lint && npm run test:setup && npm run test:run && npm run test:cleanup",
+    "test:setup" : "POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD gulp testdb:setup",
+    "test:run" : "POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD nyc ava",
+    "test:cleanup" : "POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD gulp testdb:drop",
     "test:watch": "ava -wv"
   },
   "engines": {
