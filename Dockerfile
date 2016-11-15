@@ -18,6 +18,10 @@ RUN \
 COPY . .
 
 ENV PORT ${PORT:-8080}
+ENV POSTGRES_HOST ${POSTGRES_HOST}
+ENV POSTGRES_DB ${POSTGRES_DB}
+ENV POSTGRES_USER ${POSTGRES_USER}
+ENV POSTGRES_PWD ${POSTGRES_PWD}
 
 RUN \
 	yarn run test && \
@@ -35,6 +39,7 @@ RUN \
 		gulpfile.* \
 		build/ \
 		src/ \
+		.env*
 		;
 
 EXPOSE ${PORT:-8080}
