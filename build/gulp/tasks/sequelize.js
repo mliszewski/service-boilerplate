@@ -9,10 +9,22 @@ dotenv.load({
   silent: true
 });
 
-const sequelizeTasks = gulp => {
-  gulp.task('test:setup', () => {
+const testDatabaseId = process.env.TEST_DATABASE_ID;
+const testDatabase = `test_${testDatabaseId}`;
+const gulpDB = require('gulp-db')({
+  host: process.env.POSTGRES_HOST,
+  port: 5432,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PWD,
+  dialect: 'postgres',
+  database: 'core'
+}); // eslint-disable-line global-require
+
+const sequelizeTasks = (gulp, plugins, cfg) => {
+  gulp.task('testdb:create', gulpDB.create(testDatabase));
+  gulp.task('testdb:migrate', () => {
     new Connection(
-      process.env.POSTGRES_DB,
+      testDatabase,
       process.env.POSTGRES_USER,
       process.env.POSTGRES_PWD,
       {
@@ -31,9 +43,14 @@ const sequelizeTasks = gulp => {
           sequelize: instance.sequelize,
           models: instance.models,
           migrationsPath: 'migrations'
-        }));
+        }))
+        .on('end', () => {
+          pg.query(`DROP DATABASE ${testDatabase};`);
+        });
     });
   });
+  gulp.task('testdb:drop', gulpDB.drop(testDatabase));
+  gulp.task('testdb:setup', plugins.sequence('testdb:drop', 'testdb:create', 'testdb:migrate'));
 };
 
 export default sequelizeTasks;

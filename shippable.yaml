@@ -7,20 +7,17 @@ services:
   - postgres
 
 env:
-  PORT=10010
-  POSTGRES_HOST=127.0.0.1
-  POSTGRES_DB=ci
-  POSTGRES_USER=ci
-  POSTGRES_PWD=ci
-  CODECOV_TOKEN=92837d5d-c380-4814-ba8f-aca3bf099b4f
-  DOCKER_REPO=599844260227.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate
-  DOCKER_TAG=$BRANCH-$COMMIT
+  - secure: MlfAO2aPiVe1XFZsnG4EwC7HIHsIzz4CD0s7mQ7P2y4kjMA5y9a9Lp4tqaxjZvZoozNTv90zChtNdh+C1zDBWZQBdope1AAhcVIHwHZ+ebxR0loWBhOPGQcA1EEqXJe7v+l5cDT9wcNZKLRAalymCSvSBNxh+aewUbBE5cKiOW2vz6dTwh/rEugMsUhmqB9HXSZdhm57HNATOPmX0tXBBft/vjJkfRa4njEtDumuLR/zuoPJajVzlttUxhxt7HjxnJOHJaQcAzbnvX9qqIZjsehpVvMRdGoiK1EYi+grrdO9ugetv1h/cL7AdPt/t6UXznI8wZfICy7ieh79dDVGHg==
+  - PORT=10010
+  - CODECOV_TOKEN=92837d5d-c380-4814-ba8f-aca3bf099b4f
+  - DOCKER_REPO=599844260227.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate
+  - DOCKER_TAG=$BRANCH-$COMMIT
+  - POSTGRES_DB=test_$JOB_ID
+  - TEST_DATABASE_ID=$JOB_ID
 
 
 build:
   ci:
-    - psql -c "create user ci with superuser password 'ci';" -U postgres
-    - psql -c "create database ci;" -U postgres
     - docker build --rm=false -t $DOCKER_REPO:$DOCKER_TAG .
     - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > shippable/testresults/results.xml
     - ./node_modules/.bin/nyc report --reporter=cobertura --report-dir ./shippable/codecoverage
