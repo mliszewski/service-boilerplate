@@ -3,30 +3,18 @@ machine:
     version: v6.1.0
   environment:
     PORT: 10010
-    POSTGRES_HOST: 127.0.0.1
-    POSTGRES_DB: circle_test
-    POSTGRES_USER: ubuntu
+    POSTGRES_DB: test_$CIRCLE_BUILD_NUM
+    DOCKER_REPO: 599844260227.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate
+    DOCKER_TAG: $CIRCLE_BRANCH-$CIRCLE_SHA1
   services:
     - docker
 
-dependencies:
-  override:
-    - npm install -q && npm cache clean
-  post:
-    - docker build --rm=false -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:$CIRCLE_SHA1 .
-
 test:
   override:
-    - ./node_modules/.bin/gulp lint
-    - ./node_modules/.bin/gulp test:setup
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - ./node_modules/.bin/nyc ./node_modules/.bin/ava --tap | ./node_modules/.bin/tap-xunit > $CIRCLE_TEST_REPORTS/junit/test-results.xml
-    - mkdir -p $CIRCLE_ARTIFACTS/codecoverage
-    - ./node_modules/.bin/nyc report --reporter=html --report-dir $CIRCLE_ARTIFACTS/codecoverage
+    - docker build --rm=false --build-arg POSTGRES_DB=$POSTGRES_DB --build-arg POSTGRES_HOST=$POSTGRES_HOST --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_PWD=$POSTGRES_PWD  -t $DOCKER_REPO:$DOCKER_TAG .
 
   post:
-    - bash <(curl -s https://codecov.io/bash)
-    - docker run -d -p 8080:10010 -e PORT -e POSTGRES_HOST -e POSTGRES_DB -e POSTGRES_USER --name service-boilerplate $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate:$CIRCLE_SHA1; sleep 10
+    - docker run -d -p 8080:10010 -e PORT -e POSTGRES_HOST -e POSTGRES_DB -e POSTGRES_USER --name service-boilerplate $DOCKER_REPO:$DOCKER_TAG; sleep 10
     - curl --retry 10 --retry-delay 5 localhost:8080/heartbeat | grep "OK"
 
 deployment:
