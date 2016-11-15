@@ -24,6 +24,11 @@ ENV POSTGRES_USER ${POSTGRES_USER}
 ENV POSTGRES_PWD ${POSTGRES_PWD}
 
 RUN \
+    export POSTGRES_HOST=${POSTGRES_HOST} && \
+    export POSTGRES_DB=${POSTGRES_DB} && \
+    export POSTGRES_USER=${POSTGRES_USER} && \
+    export POSTGRES_PWD=${POSTGRES_PWD} && \
+    export TEST_DATABASE_ID=${TEST_DATABASE_ID} && \
 	yarn run test && \
 	yarn run clean:dusting && \
 	yarn run build && \
@@ -39,7 +44,7 @@ RUN \
 		gulpfile.* \
 		build/ \
 		src/ \
-		.env*
+		.env* \
 		;
 
 EXPOSE ${PORT:-8080}
