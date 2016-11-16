@@ -18,7 +18,7 @@ build:
     - docker build --rm=false --build-arg POSTGRES_DB=$POSTGRES_DB --build-arg POSTGRES_HOST=$POSTGRES_HOST --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_PWD=$POSTGRES_PWD  -t $DOCKER_REPO:$DOCKER_TAG .
     - docker stop service-boilerplate || docker rm service-boilerplate || docker run -d -p 8080:10010 -e PORT -e POSTGRES_HOST -e POSTGRES_DB -e POSTGRES_USER --name service-boilerplate $DOCKER_REPO:$DOCKER_TAG; sleep 10
     - docker cp service-boilerplate:results/results.xml ./shippable/testresults/results.xml
-    - docker cp service-boilerplate:results/codecoverage/* ./shippable/codecoverage
+    - docker cp service-boilerplate:results/codecoverage/. ./shippable/codecoverage/
     - docker stop service-boilerplate && docker rm service-boilerplate
     - bash <(curl -s https://codecov.io/bash)
   push:
