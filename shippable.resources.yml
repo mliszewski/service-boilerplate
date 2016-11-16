@@ -30,7 +30,7 @@ resources:
           awslogs-group: service-boilerplate
           awslogs-region: us-east-1
 
-  - name: dv-img-params
+  - name: dv-params
     type: params
     version:
       params:
