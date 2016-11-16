@@ -33,7 +33,7 @@ integrations:
           - master
 
 notifications:
-  - integrationName: "triggerBoilerplate"
+  - integrationName: boilerplate-staging
     type: webhook
     payload:
       - versionName=$DOCKER_TAG
