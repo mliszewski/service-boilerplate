@@ -33,21 +33,26 @@ ENV POSTGRES_PWD $POSTGRES_PWD
 RUN \
     yarn run test && \
 	yarn run clean:dusting && \
-	yarn run build && \
-	rm -rf \
+	yarn run build
+
+WORKDIR /src
+
+RUN rm -rf \
 		.babelrc \
 		.dockerignore \
 		.eslint* \
 		.npmrc \
 		.nvmrc \
-		Dockerfile \
-		docker-compose.yaml \
 		README.md \
 		gulpfile.* \
-		build/ \
-		src/ \
-		.env* \
+		build/* \
+		src/* \
+		test/* \
+		.env \
 		results.tap \
+		*.yaml \
+		*.yml \
+		deploy.sh \
 		;
 
 EXPOSE ${PORT:-8080}

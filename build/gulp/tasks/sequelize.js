@@ -36,7 +36,8 @@ const sequelizeTasks = (gulp, plugins, cfg) => {
           idle: 10000
         }
       },
-      [path.join(__dirname, '../../../src/app/server/models')]
+      [path.join(__dirname, '../../../src/app/server/models')],
+      file => path.extname(file) === '.js'
     ).then(instance => {
       gulp.src('test/fixtures/**/*', {read: false})
         .pipe(sequelizeTestSetup({

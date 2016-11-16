@@ -24,7 +24,8 @@ test.before(t =>
         idle: 10000
       }
     },
-    [path.join(__dirname, '../../server/models')]
+    [path.join(__dirname, '../../server/models')],
+    file => path.extname(file) === '.js'
   )
 );
 

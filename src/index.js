@@ -2,10 +2,11 @@
 import {install} from 'source-map-support';
 install(); // Enable source maps
 
-import path from 'path';
+import cwd from 'cwd';
 import app from './app/server';
 import config from './app/config';
 import Connection from 'sequelize-connect';
+import path from 'path';
 
 const {
   name: appName,
@@ -27,7 +28,8 @@ new Connection(
       idle: 10000
     }
   },
-  [path.join(__dirname, '/app/models')]
+  [cwd(__dirname, './app/server/models')],
+  file => path.extname(file) === '.js'
 ).then(instance => {
   const server = app.listen(port, host, () => {
     const actualHost = server.address().address;
