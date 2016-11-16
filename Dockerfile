@@ -2,6 +2,7 @@ FROM mhart/alpine-node:6
 
 # Create app directory
 RUN mkdir -p /src
+RUN mkdir -p /root/.cache/yarn
 
 # Install app dependencies
 COPY package.json yarn.lock /src/
@@ -11,7 +12,7 @@ WORKDIR /src
 RUN \
 	echo "# REPLACE ME" > README.md && \
   npm install -g yarn && \
-	yarn install --pure-lockfile && \
+    yarn install --pure-lockfile && \
 	yarn cache clean
 
 # Bundle app source
