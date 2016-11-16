@@ -17,11 +17,11 @@
     "lint": "gulp lint",
     "start": "node dist",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
-    "test": "gulp lint && npm run test:setup && mkdir -p results && npm run test:run && npm run test:cleanup && npm run test:results",
+    "test": "gulp lint && npm run test:setup && mkdir -p ../results && npm run test:run && npm run test:cleanup && npm run test:results",
     "test:setup": "POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD gulp testdb:setup",
     "test:run": "POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD nyc ava --tap | tee results.tap | tap-diff",
     "test:cleanup": "POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD gulp testdb:drop",
-    "test:results": "less results.tap | tap-xunit > ./results/results.xml & nyc report --reporter=cobertura --report-dir ./results/codecoverage",
+    "test:results": "less results.tap | tap-xunit > ../results/results.xml & nyc report --reporter=cobertura --report-dir ../results/codecoverage",
     "test:watch": "ava -wv"
   },
   "engines": {
