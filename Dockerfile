@@ -47,6 +47,7 @@ RUN \
 		build/ \
 		src/ \
 		.env* \
+		results.tap \
 		;
 
 EXPOSE ${PORT:-8080}
