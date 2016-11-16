@@ -31,3 +31,11 @@ integrations:
       branches:
         only:
           - master
+
+notifications:
+  - integrationName: "triggerBoilerplate"
+    type: webhook
+    payload:
+      - versionName=$DOCKER_TAG
+    on_success: always
+    on_failure: never
