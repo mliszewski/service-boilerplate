@@ -16,8 +16,8 @@ env:
 build:
   ci:
     - docker build --rm=false --build-arg POSTGRES_DB=$POSTGRES_DB --build-arg POSTGRES_HOST=$POSTGRES_HOST --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_PWD=$POSTGRES_PWD  -t $DOCKER_REPO:$DOCKER_TAG .
-    - docker cp $DOCKER_REPO:results/results.xml ./shippable/testresults/results.xml
-    - docker cp $DOCKER_REPO:results/codecoverage/* ./shippable/codecoverage
+    - docker cp service-boilerplate:results/results.xml ./shippable/testresults/results.xml
+    - docker cp service-boilerplate:results/codecoverage/* ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
   push:
       docker push $DOCKER_REPO:$DOCKER_TAG
