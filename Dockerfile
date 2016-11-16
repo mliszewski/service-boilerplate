@@ -2,7 +2,6 @@ FROM mhart/alpine-node:6
 
 # Create app directory
 RUN mkdir -p /src
-RUN mkdir -p /root/.cache/yarn
 
 # Install app dependencies
 COPY package.json yarn.lock /src/
