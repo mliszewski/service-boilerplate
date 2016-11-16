@@ -1,0 +1,56 @@
+resources:
+
+#######1: Create DV pipeline
+
+# Docker Image for VISUALIZER
+  - name: dv-img
+    type: image
+    integration: ecr-integration
+    pointer:
+      sourceName: 599844260227.dkr.ecr.us-east-1.amazonaws.com/service-boilerplate
+      isPull: false
+    #make sure this seed version exists in your registry account
+    seed:
+      versionName: master-b8db6d7535d44566651c21a043fbe69016b2ea9b
+
+# Docker Image Options for VISUALIZER
+  - name: dv-img-opts
+    type: dockerOptions
+    version:
+      memory: 300
+      portMappings:
+        - 10010:8080
+      publishAllPorts : true
+      entryPoint:
+        - /bin/sh
+        - run_staging.sh
+      logConfig:
+        type: awslogs
+        options:
+          awslogs-group: service-boilerplate
+          awslogs-region: us-east-1
+
+  - name: dv-img-params
+    type: params
+    version:
+      params:
+        PORT: "10010"
+        POSTGRES_DB: "core"
+        secure: MlfAO2aPiVe1XFZsnG4EwC7HIHsIzz4CD0s7mQ7P2y4kjMA5y9a9Lp4tqaxjZvZoozNTv90zChtNdh+C1zDBWZQBdope1AAhcVIHwHZ+ebxR0loWBhOPGQcA1EEqXJe7v+l5cDT9wcNZKLRAalymCSvSBNxh+aewUbBE5cKiOW2vz6dTwh/rEugMsUhmqB9HXSZdhm57HNATOPmX0tXBBft/vjJkfRa4njEtDumuLR/zuoPJajVzlttUxhxt7HjxnJOHJaQcAzbnvX9qqIZjsehpVvMRdGoiK1EYi+grrdO9ugetv1h/cL7AdPt/t6UXznI8wZfICy7ieh79dDVGHg==
+
+# env vars for VISUALIZER
+#  - name: dv-params
+#    type: params
+#    version:
+#      params:
+#        MONGO_API_URL: "https://api.mlab.com/api/1/databases/box-pipev2/collections/boxes?apiKey=QRsFUOV7XbNdHfTnJ7KU9bgQdnun-m_I"
+
+# add TEST env - AWS cluster
+  - name: env-test-ecs
+    type: cluster
+    integration: ecs-integration
+    pointer:
+      sourceName : "service-boilerplate"
+      region: "us-east-1"
+
+#######1: EOF Create DV pipeline
