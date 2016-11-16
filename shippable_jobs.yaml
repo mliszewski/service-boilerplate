@@ -1,0 +1,25 @@
+jobs:
+
+# jobs for the dv pipeline from CI thru TEST environment
+
+
+# manifest gen for VISUALIZER
+  - name: dv-man
+    type: manifest
+    steps:
+      - IN: dv-img
+      - IN: dv-img-opts
+      - TASK: managed
+
+#/ manifest gen for VISUALIZER
+
+# TEST deployment for VISUALIZER to Amazon ECS
+  - name: dv-test-ecs
+    type: deploy
+    steps:
+      - IN: dv-man
+      - IN: dv-params
+      - IN: env-test-ecs
+      - TASK: managed
+
+# / TEST deployment for VISUALIZER to Amazon ECS
