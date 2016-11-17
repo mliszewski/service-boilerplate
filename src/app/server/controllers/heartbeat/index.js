@@ -1,7 +1,7 @@
 const controller = {get};
 
 function get() {
-  return {message: 'OK'};
+  return {message: 'OS'};
 }
 
 export default controller;
