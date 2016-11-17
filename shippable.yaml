@@ -39,3 +39,6 @@ integrations:
         - versionName=$DOCKER_TAG
       on_success: always
       on_failure: never
+      branches:
+        only:
+          - master
