@@ -1,5 +1,7 @@
 FROM mhart/alpine-node:6
 
+RUN apk add --update bash && rm -rf /var/cache/apk/*
+
 # Create app directory
 RUN mkdir -p /src
 
