@@ -21,7 +21,7 @@ build:
     image_name: $DOCKER_REPO
     image_tag: $DOCKER_TAG
     pull: false
-    options: "--name service_boilerplate"
+    options: "-e HOME=/root --name service_boilerplate"
 
   ci:
     - yarn run test
@@ -29,6 +29,7 @@ build:
     - yarn run build
     - rm -rf .babelrc .dockerignore .eslint* .npmrc.nvmrc README.md gulpfile.* build/ src/ test/ .env results.tap *.yaml *.yml deploy.sh
     - bash <(curl -s https://codecov.io/bash)
+    
   push:
     docker commit service_boilerplate $DOCKER_REPO:$DOCKER_TAG
     docker push $DOCKER_REPO:$DOCKER_TAG
