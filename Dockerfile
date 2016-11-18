@@ -1,6 +1,4 @@
-FROM mhart/alpine-node:6
-
-RUN apk add --no-cache cmake git gcc python py-pip bash
+FROM node:6-slim
 
 # Create app directory
 RUN mkdir -p /src
