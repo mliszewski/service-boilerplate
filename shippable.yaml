@@ -23,6 +23,7 @@ build:
     options: "-e HOME=/root --name service_boilerplate"
 
   ci:
+    - npm install -g gulp-cli
     - yarn run test
     - yarn run clean:dusting
     - yarn run build
@@ -30,7 +31,6 @@ build:
     - bash <(curl -s https://codecov.io/bash)
 
   push:
-    docker commit service_boilerplate $DOCKER_REPO:$DOCKER_TAG
     docker push $DOCKER_REPO:$DOCKER_TAG
 
 integrations:

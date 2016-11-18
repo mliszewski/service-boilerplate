@@ -26,6 +26,24 @@ RUN \
 
 WORKDIR /src
 
+RUN rm -rf \
+		.babelrc \
+		.dockerignore \
+		.eslint* \
+		.npmrc \
+		.nvmrc \
+		README.md \
+		gulpfile.* \
+		build/* \
+		src/* \
+		test/* \
+		.env \
+		results.tap \
+		*.yaml \
+		*.yml \
+		deploy.sh \
+		;
+
 EXPOSE ${PORT:-8080}
 
 CMD [ "yarn", "run", "start" ]
