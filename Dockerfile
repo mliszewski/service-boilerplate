@@ -17,6 +17,9 @@ RUN \
 # Bundle app source
 COPY . .
 
+ENV PORT=${PORT:-8080} POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB \
+    POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD
+
 RUN \
     yarn run clean:dusting && \
 	yarn run build
