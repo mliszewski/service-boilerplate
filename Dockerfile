@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:6
 
-RUN apk add --update bash && rm -rf /var/cache/apk/*
+RUN apk add --no-cache cmake git gcc python py-pip bash
 
 # Create app directory
 RUN mkdir -p /src
