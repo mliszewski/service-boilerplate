@@ -23,11 +23,11 @@ build:
     options: "-e HOME=/root --name service_boilerplate"
 
   ci:
-    - cd /src
-    - yarn run test
-    - yarn run clean:dusting
-    - yarn run build
-    - rm -rf .babelrc .dockerignore .eslint* .npmrc.nvmrc README.md gulpfile.* build/ src/ test/ .env results.tap *.yaml *.yml deploy.sh
+    - yarn install --pure-lockfile
+    - yarn cache clean
+    - yarn test
+    - cp ./results/results.xml ./shippable/testresults
+    - cp ./results/codecoverage/* ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
 
   push:
