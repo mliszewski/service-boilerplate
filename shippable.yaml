@@ -23,7 +23,7 @@ build:
     options: "-e HOME=/root --name service_boilerplate"
 
   ci:
-    - npm install -g gulp-cli
+    - cd /src
     - yarn run test
     - yarn run clean:dusting
     - yarn run build
