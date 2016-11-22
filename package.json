@@ -21,7 +21,7 @@
     "test:setup": "gulp testdb:setup",
     "test:run": "nyc ava --tap | tee results.tap | tap-diff",
     "test:cleanup": "gulp testdb:drop",
-    "test:results": "less results.tap | tap-xunit > ./results/results.xml & nyc report --reporter=cobertura --report-dir ./results/codecoverage",
+    "test:results": "less -f results.tap | tap-xunit > ./results/results.xml & nyc report --reporter=cobertura --report-dir ./results/codecoverage",
     "test:watch": "ava -wv"
   },
   "engines": {
