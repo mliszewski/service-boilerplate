@@ -17,7 +17,7 @@
     "lint": "gulp lint",
     "start": "node dist",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
-    "test": "gulp lint && npm run test:setup && mkdir -p ./results && npm run test:run && npm run test:cleanup && npm run test:results",
+    "test": "gulp lint && npm run test:setup && mkdir -p ./results && npm run test:run && npm run test:cleanup",
     "test:setup": "gulp testdb:setup",
     "test:run": "nyc ava --tap | tee results.tap | tap-diff",
     "test:cleanup": "gulp testdb:drop",
