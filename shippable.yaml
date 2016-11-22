@@ -27,12 +27,17 @@ build:
     - yarn cache clean
     - yarn test
 
-  post_ci:
+  on_success:
     - yarn test:results
     - cp ./results/results.xml ./shippable/testresults
     - cp ./results/codecoverage/* ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
 
+  on_failure:
+      - yarn test:results
+      - cp ./results/results.xml ./shippable/testresults
+      - cp ./results/codecoverage/* ./shippable/codecoverage
+      - bash <(curl -s https://codecov.io/bash)
 
   push:
     docker push $DOCKER_REPO:$DOCKER_TAG
