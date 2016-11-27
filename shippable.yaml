@@ -38,6 +38,7 @@ build:
     - cp ./results/results.xml ./shippable/testresults
     - cp ./results/codecoverage/* ./shippable/codecoverage
     - bash <(curl -s https://codecov.io/bash)
+
   push:
     docker push $DOCKER_REPO:$DOCKER_TAG
 
