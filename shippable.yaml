@@ -46,6 +46,7 @@ integrations:
   hub:
     - integrationName: ecr-integration
       type: ecr
+      agent_only: true
       branches:
         only:
           - master
