@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:6
+FROM node:6-slim
 
 # Create app directory
 RUN mkdir -p /src
@@ -17,22 +17,11 @@ RUN \
 # Bundle app source
 COPY . .
 
-ARG POSTGRES_DB
-ARG POSTGRES_HOST
-ARG POSTGRES_DB
-ARG POSTGRES_USER
-ARG POSTGRES_PWD
-
-ENV PORT ${PORT:-8080}
-ENV POSTGRES_HOST $POSTGRES_HOST
-ENV POSTGRES_DB $POSTGRES_DB
-ENV POSTGRES_USER $POSTGRES_USER
-ENV POSTGRES_PWD $POSTGRES_PWD
-
+ENV PORT=${PORT:-8080} POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB \
+    POSTGRES_USER=$POSTGRES_USER POSTGRES_PWD=$POSTGRES_PWD
 
 RUN \
-    yarn run test && \
-	yarn run clean:dusting && \
+    yarn run clean:dusting && \
 	yarn run build
 
 WORKDIR /src
